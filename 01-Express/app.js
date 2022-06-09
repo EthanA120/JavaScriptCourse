@@ -1,35 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const https = require("https");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-    const url = "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json";
-    https.get(url, function (res) {
-        let data = "";
-
-        res.on("data", (chunk) => {
-            data += chunk;
-        });
-
-        res.on("end", () => {
-            try {
-                let superheros = JSON.parse(data);
-                console.log(`Superhero's name: ${superheros[495].name}`)  // Superman
-            } catch (error) {
-                console.error(error.message);
-            };
-        });
-
-    }).on("error", (error) => {
-        console.error(error.message);
-    });
-
     res.sendFile(__dirname + "/index.html");
 });
-
 
 app.post("/about", function (req, res) {
     res.sendFile(__dirname + "/index.html");
