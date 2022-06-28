@@ -3,18 +3,37 @@ const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/fruitsDB", { useNewUrlParser: true });
 
 const fruitSchema = new mongoose.Schema({
-    name: String,
-    rating: Number,
+    name: {
+        type: String,
+        required: [true, "Please name the fruit"]
+    },
+    rating:{
+        type: Number,
+        min: 0,
+        max: 10
+    },
     review: String
 });
 
+const personSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, "Please name the person"]
+    },
+    age:{type: Number},
+    favoriteFruit: fruitSchema
+});
+
 const Fruit = mongoose.model("Fruit", fruitSchema);
+const Person = mongoose.model("Person", personSchema);
 
 const fruit = new Fruit({
     name: "Apple",
     rating: 7,
     review: "Some review here"
 });
+
+// fruit.save();
 
 const kiwi = new Fruit({
     name: "Kiwi",
@@ -43,24 +62,21 @@ Fruit.insertMany([kiwi, orange, lemon], function(err){
     }
 });
 
-34685 "להקים הרשאה, קוד מוסד"
+const person = new Person({
+    name: "Ethan",
+    age: 28,
+    favoriteFruit: lemon
+});
 
-// fruit.save();
+// person.save();
 
-// async function run() {
-//   try {
-//     await client.connect();
-//     const db = client.db('fruitsDB');
-//     const fruits = db.collection('fruits');
 
-//     const query = {_id: 1, name: 'Apple'};
-//     fruits.insertOne(query);
+Fruit.find({}, function(err, fruitsList){
+    fruitsList.forEach(fruit => {
+        console.log(fruit.name);
+    });
+});
 
-//     const fruit = await fruits.findOne(query);
-//     console.log(fruit);
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
+Person.find({}, function(err, people){
+    console.log(people[0].favoriteFruit.name);
+});
