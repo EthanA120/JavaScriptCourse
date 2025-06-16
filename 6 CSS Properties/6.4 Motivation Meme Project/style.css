@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+}
+
+div {
+    width: 50%;
+    margin: 25px 25% 0px 25%;
+    color: white;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    border: 5px solid white;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+p {
+    font-size: 1.5em;
+}
