@@ -1,0 +1,56 @@
+pre {
+    background-color: #282c34;
+    color: #abb2bf;
+    border-radius: 8px;
+    padding: 2rem;
+    font-family: "Fira Code", "Cascadia Code", monospace;
+    font-size: 1.5em;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+h1 {
+    color: #61afef;
+    font-size: 2em;
+}
+
+ol {
+    margin-left: 3rem;
+}
+
+li {
+    white-space: nowrap;
+}
+
+li::marker {
+    color: #c678dd;
+}
+
+code {
+    font-size: 1.5em;
+    color: #e5c07b;
+}
+
+abbr {
+    color: #959eae;
+}
+
+.bdfn, .bcode {
+    display: block;
+}
+
+dfn {
+    color: #c2c6cc;
+}
+
+span {
+    color: #98c379;
+}
+
+.example {
+    color: #d19a66;
+}
+
+ul {
+    list-style-type: none;
+}
