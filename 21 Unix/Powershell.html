@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PowerShell</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="style.css">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <pre>
+        <div id="Navigation">
+            <h1>Basic Navigation and File Management Commands (PowerShell)</h1>
+            <ol>
+                <li>
+                    <code>Get-Location</code> <abbr>(gl, pwd)</abbr>
+                    <dfn class="bdfn">- Displays the full path of your current directory.</dfn>
+                    <span>Example:</span> <code class="example">Get-Location</code>
+                </li>
+                <li>
+                    <code>Get-ChildItem</code> <abbr>(gci, ls, dir)</abbr>
+                    <dfn class="bdfn">- Lists files and directories in the current directory.</dfn>
+                    <span>Useful Options:</span>
+                    <ul>
+                        <li><code class="example">Get-ChildItem</code><dfn>: Detailed list (default in PowerShell).</dfn></li>
+                        <li><code class="example">Get-ChildItem -Force</code><dfn>: Shows hidden files.</dfn></li>
+                    </ul>
+                    <span>Example:</span> <code class="example">Get-ChildItem -Force</code>
+                </li>
+                <li>
+                    <code>Set-Location</code> <abbr>(sl, cd)</abbr>
+                    <dfn class="bdfn">- Changes your current directory.</dfn>
+                    <span>Examples:</span>
+                    <ul>
+                        <li><code class="example">Set-Location my_project</code><dfn>: Go to a specific directory.</dfn></li>
+                        <li><code class="example">Set-Location ..</code><dfn>: Go up one directory.</dfn></li>
+                        <li><code class="example">Set-Location ~</code><dfn>: Go to home directory.</dfn></li>
+                        <li><code class="example">Set-Location C:\Users\YourUser\Desktop</code><dfn>: Go to an absolute path.</dfn></li>
+                    </ul>
+                </li>
+                <li>
+                    <code>New-Item</code> <abbr>(ni, mkdir, md)</abbr>
+                    <dfn class="bdfn">- Creates a new directory.</dfn>
+                    <span>Example:</span> <code class="example">New-Item -ItemType Directory -Name new_folder</code> or <code class="example">mkdir new_folder</code>
+                </li>
+                <li>
+                    <code>New-Item -ItemType File</code> <abbr>(ni, touch)</abbr>
+                    <dfn class="bdfn">- Creates a new, empty file.</dfn>
+                    <span>Example:</span> <code class="example">New-Item -ItemType File -Name my_file.txt</code> or <code class="example">ni my_file.txt</code>
+                </li>
+                <li>
+                    <code>Remove-Item</code> <abbr>(ri, rm)</abbr>
+                    <dfn class="bdfn">- Deletes files (permanently!).</dfn>
+                    <div><span>Example:</span> <code class="example">Remove-Item my_file.txt</code></div>
+                                    <span>To delete a non-empty directory:</span> <code class="example">Remove-Item -Recurse -Force my_folder</code>
+                                    <abbr>(use with caution!)</abbr>
+                </li>
+                <li>
+                    <code>Clear-Host</code> <abbr>(cls, clear)</abbr>
+                    <dfn class="bdfn">- Clears the terminal screen.</dfn>
+                    <span>Example:</span> <code class="example">Clear-Host</code>
+                </li>
+            </ol>
+        </div>
+
+        <div id="Git">
+        <h1>Basic Git Commands</h1>
+        <ol>
+            <li>
+                <code>git config</code> <abbr>(configuration)</abbr>
+                <dfn class="bdfn">- Sets your personal details for Git.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git config --global user.name "Your Name"</code></li>
+                    <li><code class="example">git config --global user.email "your.email@example.com"</code></li>
+                </ul>
+            </li>
+            <li>
+                <code>git init</code> <abbr>(initialize)</abbr>
+                <dfn class="bdfn">- Creates a new Git repository in the current directory.</dfn>
+                <span>Example:</span> <code class="example">git init</code>
+            </li>
+            <li>
+                <code>git clone</code>
+                <dfn class="bdfn">- Copies an existing Git repository from a remote server.</dfn>
+                <span>Example:</span> <code class="example">git clone https://github.com/username/repository-name.git</code>
+            </li>
+            <li>
+                <code>git status</code>
+                <dfn class="bdfn">- Shows the current status of the repository.</dfn>
+                <span>Example:</span> <code class="example">git status</code>
+            </li>
+            <li>
+                <code>git add</code>
+                <dfn class="bdfn">- Adds changes to the staging area for the next commit.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git add my_file.txt</code><dfn>: Add a specific file.</dfn></li>
+                    <li><code class="example">git add .</code><dfn>: Add all changes.</dfn></li>
+                </ul>
+            </li>
+            <li>
+                <code>git commit</code>
+                <dfn class="bdfn">- Creates a "snapshot" of the staged changes.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git commit -m "Initial commit"</code><dfn>: Commit with a short message.</dfn></li>
+                    <li><code class="example">git commit</code><dfn>: Opens editor for detailed message.</dfn></li>
+                </ul>
+            </li>
+            <li>
+                <code>git log</code>
+                <dfn class="bdfn">- Displays the commit history.</dfn>
+                <span>Useful Options:</span>
+                <ul>
+                    <li><code class="example">git log --oneline</code><dfn>: Shortened log.</dfn></li>
+                    <li><code class="example">git log --graph --oneline --all</code><dfn>: Graph view.</dfn></li>
+                </ul>
+                <span>Example:</span> <code class="example">git log --oneline</code>
+            </li>
+            <li>
+                <code>git branch</code>
+                <dfn class="bdfn">- Manages branches.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git branch</code><dfn>: List branches.</dfn></li>
+                    <li><code class="example">git branch new_feature</code><dfn>: Create new branch.</dfn></li>
+                </ul>
+            </li>
+            <li>
+                <code>git switch</code> <abbr>(recommended over git checkout for switching)</abbr>
+                <dfn class="bdfn">- Switches between branches.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git switch new_feature</code><dfn>: Switch to a branch.</dfn></li>
+                    <li><code class="example">git switch -c another_feature</code><dfn>: Create and switch.</dfn></li>
+                </ul>
+            </li>
+            <li>
+                <code>git merge</code>
+                <dfn class="bdfn">- Merges changes from one branch into another.</dfn>
+                <span>Example:</span> <code class="example">git merge new_feature</code>
+            </li>
+            <li>
+                <code>git remote</code>
+                <dfn class="bdfn">- Manages connections to remote repositories.</dfn>
+                <span>Examples:</span>
+                <ul>
+                    <li><code class="example">git remote -v</code><dfn>: Show remotes.</dfn></li>
+                    <li><code class="example">git remote add origin https://github.com/username/repo.git</code><dfn>: Add a remote.</dfn></li>
+                </ul>
+            </li>
+            <li>
+                <code>git push</code>
+                <dfn class="bdfn">- Uploads your local commits to the remote repository.</dfn>
+                <span>Example:</span> <code class="example">git push origin main</code>
+                <div><span>First push of a new branch:</span> <code class="example">git push -u origin new_feature</code></div>
+            </li>
+            <li>
+                <code>git pull</code>
+                <dfn class="bdfn">- Downloads changes from the remote repository and merges them locally.</dfn>
+                <span>Example:</span> <code class="example">git pull origin main</code>
+            </li>
+        </ol>
+    </div>
+------------
+        <div id="Workflow">
+            <h1>Example Basic Workflow</h1>
+            <ol>
+                <li>
+                    <code>Start a new project:</code>
+                    <div><code class="example">New-Item -ItemType Directory -Name my_project</code> <dfn>- Creates a new directory.</dfn></div>
+                    <div><code class="example">Set-Location my_project</code> <dfn>- Enters the new directory.</dfn></div>
+                    <div><code class="example">git init</code> <dfn>- Initializes a new Git repository.</dfn></div>
+                    <div><code class="example">New-Item -ItemType File -Name README.md</code> <dfn>- Creates a README file.</dfn></div>
+                    <div><code class="example">git add .</code> <dfn>- Stages all files for commit.</dfn></div>
+                    <div><code class="example">git commit -m "Initial project setup"</code> <dfn>- Commits the staged files.</dfn></div>
+                </li>
+                <li>
+                    <code>Work on a new feature:</code>
+                    <div><code class="example">git switch -c my_new_feature</code> <dfn>- Creates a new branch and switches to it (Make changes to files).</dfn></div>
+                    <div><code class="example">git status</code> <dfn>- Checks the status of the repository.</dfn></div>
+                    <div><code class="example">git add .</code> <dfn>- Stages the changes.</dfn></div>
+                    <div><code class="example">git commit -m "Added cool new feature"</code> <dfn>- Commits the changes with a message.</dfn></div>
+                    <div><code class="example">git push -u origin my_new_feature</code> <dfn>- Pushes the new branch to the remote repository.</dfn></div>
+                </li>
+                <li>
+                    <code>Merge feature to main:</code>
+                    <div><code class="example">git switch main</code> <dfn>- Switches back to the main branch.</dfn></div>
+                    <div><code class="example">git pull origin main</code> <dfn>- Pulls the latest changes from the remote main branch.</dfn></div>
+                    <div><code class="example">git merge my_new_feature</code> <dfn>- Merges the feature branch into main.</dfn></div>
+                    <div><code class="example">git push origin main</code> <dfn>- Pushes the merged changes to the remote repository.</dfn></div>
+                </li>
+            </ol>
+        </div>
+    </pre>
+</body>
+
+</html>
