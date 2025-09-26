@@ -3,9 +3,17 @@ nav {
     /* background-size: 70%;
     background-position: 20%; */
     /* background-color: #2d2f31; */
-    border-bottom: 1px solid linear-gradient(45deg ,white 20%, black 80%);
+    border-bottom: 1px solid linear-gradient(45deg ,white 20%, black);
     border-radius: 0px 0px 5px 5px;
-    background-image: linear-gradient(45deg ,white 20%, black 80%);
+    background-image: linear-gradient(45deg ,white 20%, black);
+}
+
+.nav-item {
+    transition: transform 0.1s ease-in-out;
+}
+
+.nav-item:hover {
+    transform: scale(1.2);
 }
 
 form {
