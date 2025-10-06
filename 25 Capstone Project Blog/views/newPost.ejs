@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs") %>
 
     <h1 class="mt-4 text-md-center">Add new post</h1>
-    <form>
+    <form action="/submit" method="POST">
         <input name="name" type="text" class="feedback-input" placeholder="Name" />
         <input name="email" type="text" class="feedback-input" placeholder="Email" />
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>

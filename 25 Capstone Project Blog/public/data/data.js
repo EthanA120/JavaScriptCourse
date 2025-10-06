@@ -1,34 +1,6 @@
-import express from "express";
 import { readFile, writeFile } from 'fs/promises';
 
-const app = express();
-const port = 3000;
 const FILE_NAME = 'posts.json';
-
-app.use(express.static("public"));
-// app.use(express.json()); // Enable JSON body parsing
-app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
-
- 
-app.get("/", (req, res) => {
-    // console.log(data);
-    res.render("index.ejs");
-});
-
-app.get("/newPost", (req, res) => {
-    // console.log(req.body); // Access the parsed JSON data
-    res.render("newPost.ejs");
-});
-
-app.post("/submit", (req, res) => {
-    // console.log(req.body); // Access the parsed JSON data
-    res.redirect("/");
-});
-
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}.`);
-});
-
 
 // Read file function:
 async function readFileData(fileName) {
@@ -90,3 +62,35 @@ async function updateFileDeep(fileName, updates) {
         return null;
     }
 }
+
+// ----------------------
+// לוגיקה ראשית לדוגמה
+// ----------------------
+// async function main() {
+//     console.log("--- Starting ---");
+
+// // נתונים ראשוניים
+// const initialData = { Ethan: { ID: 0, Level: 1, Title: "Gamer" }, Jonny: { ID: 1, Level: 5, Title: "ProGamer" } };
+// await writeFileData(FILE_NAME, initialData);
+// console.log(`1. Initial data saved: ${JSON.stringify(initialData)}`);
+
+// עדכון המידע (שינוי רמה והוספת ניקוד)
+//     const updates = {
+//         Ethan: {
+//             level: 2,
+//             score: 100,
+//             location: "Israel",
+//             Title: 'FineGamer'
+//         }
+//     };
+
+//     const finalData = await updateFileDeep(FILE_NAME, updates);
+
+//     // קריאה סופית לוודא
+//     const verificationData = await readFileData(FILE_NAME);
+//     console.log("\n2. Verifying data:");
+//     console.log(verificationData);
+
+// }
+
+// main();

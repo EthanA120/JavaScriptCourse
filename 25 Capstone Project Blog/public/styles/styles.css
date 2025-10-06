@@ -16,6 +16,10 @@ nav {
     transform: scale(1.2);
 }
 
+.side-widget {
+    min-height: 100vh;
+}
+
 form {
     margin: 50px;
 }
