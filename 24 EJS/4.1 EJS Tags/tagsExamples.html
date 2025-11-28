@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS Cheat Sheet</title>
+    <link rel="stylesheet" href="tagsExamplesStyle.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- <%= %> Tag -->
+        <div class="box">
+            <h2>&lt;%= %&gt; - Output Escaped Value</h2>
+            <p>Outputs the value of a variable to HTML, escaping HTML characters.</p>
+            <div class="code">
+<pre><span class="tag">&lt;%=</span> <span class="variable">name</span> <span class="tag">%&gt;</span></pre>
+            </div>
+            <p>This outputs the value of <code>name</code> safely.</p>
+            <div class="output">
+                John Doe
+            </div>
+        </div>
+
+        <!-- <%- %> Tag -->
+        <div class="box">
+            <h2>&lt;%- %&gt; - Output Unescaped Value</h2>
+            <p>Outputs raw HTML without escaping. Use carefully!</p>
+            <div class="code">
+<pre><span class="tag">&lt;%-</span> <span class="variable">htmlContent</span> <span class="tag">%&gt;</span></pre>
+            </div>
+            <p>This renders the HTML stored in <code>htmlContent</code> directly.</p>
+            <div class="output">
+                &lt;strong&gt;Bold Text&lt;/strong&gt; → <strong>Bold Text</strong>
+            </div>
+        </div>
+
+        <!-- <% %> Tag -->
+        <div class="box">
+            <h2>&lt;% %&gt; - Scriptlet / Logic Tag</h2>
+            <p>Runs JavaScript code without outputting directly.</p>
+            <div class="code">
+<pre><span class="tag">&lt;%</span> <span class="function">for</span> (<span class="variable">let i</span>=0; i&lt;3; i++) { <span class="tag">%&gt;</span>
+  <span class="tag">&lt;%=</span> i <span class="tag">%&gt;</span>
+<span class="tag">&lt;%</span> } <span class="tag">%&gt;</span></pre>
+            </div>
+            <p>Loops from 0 to 2 and outputs each number.</p>
+            <div class="output">
+                012
+            </div>
+        </div>
+
+        <!-- <%_ %> Tag -->
+        <div class="box">
+            <h2>&lt;%_ %&gt; - Whitespace Slurping</h2>
+            <p>Removes whitespace before or after the tag in the output.</p>
+            <div class="code">
+<pre>Hello<span class="tag">&lt;%_</span> if(true){ <span class="tag">%&gt;</span>
+World<span class="tag">&lt;%_</span> } <span class="tag">%&gt;</span></pre>
+            </div>
+            <p>Output is “HelloWorld” without extra spaces.</p>
+            <div class="output">
+                HelloWorld
+            </div>
+        </div>
+
+        <!-- <%# %> Tag -->
+        <div class="box">
+            <h2>&lt;%# %&gt; - Comment</h2>
+            <p>This tag is ignored and does not produce output.</p>
+            <div class="code">
+<pre><span class="tag">&lt;%#</span> This is a comment <span class="tag">%&gt;</span></pre>
+            </div>
+            <p>No output is produced for comments.</p>
+            <div class="output">
+                <!-- nothing -->
+            </div>
+        </div>
+
+        <!-- Logic Examples Section -->
+        <div class="box">
+            <h2>Logic Examples</h2>
+            <p>Includes loops, conditionals, and partial includes.</p>
+
+            <h3>Conditional</h3>
+            <div class="code">
+<pre><span class="tag">&lt;%</span> <span class="function">if</span> (<span class="variable">user</span>.isAdmin) { <span class="tag">%&gt;</span>
+  Welcome Admin
+<span class="tag">&lt;%</span> } <span class="function">else</span> { <span class="tag">%&gt;</span>
+  Welcome User
+<span class="tag">&lt;%</span> } <span class="tag">%&gt;</span></pre>
+            </div>
+            <div class="output">
+                Welcome Admin
+            </div>
+
+            <h3>Loop</h3>
+            <div class="code">
+<pre><span class="tag">&lt;%</span> <span class="function">for</span>(<span class="variable">let i</span>=0;i&lt;3;i++){ <span class="tag">%&gt;</span>
+  Item <span class="tag">&lt;%=</span> i <span class="tag">%&gt;</span>
+<span class="tag">&lt;%</span> } <span class="tag">%&gt;</span></pre>
+            </div>
+            <div class="output">
+                Item 0Item 1Item 2
+            </div>
+
+            <h3>Include</h3>
+            <div class="code">
+<pre><span class="tag">&lt;%</span> <span class="function">include</span> <span class="string">'header'</span> <span class="tag">%&gt;</span></pre>
+            </div>
+            <div class="output">
+                <!-- header.ejs content is rendered here -->
+                Header Content
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

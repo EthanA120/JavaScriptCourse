@@ -3,9 +3,10 @@
     <h1 class="mt-4 text-md-center">Add new post</h1>
     <form action="/submit" method="POST">
         <input name="name" type="text" class="feedback-input" placeholder="Name" />
-        <input name="email" type="text" class="feedback-input" placeholder="Email" />
-        <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-        <input type="submit" value="SUBMIT" />
+        <input name="subject" type="text" class="feedback-input" placeholder="Subject" />
+        <input name="description" type="text" class="feedback-input" placeholder="Description" />
+        <textarea name="text" class="feedback-input" placeholder="What's on your mind?"></textarea>
+        <input type="submit" value="Post" />
     </form>
 
 <%- include("partials/footer.ejs") %>

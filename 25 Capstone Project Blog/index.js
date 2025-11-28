@@ -1,92 +1,113 @@
 import express from "express";
 import { readFile, writeFile } from 'fs/promises';
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
-const FILE_NAME = 'posts.json';
+var pickSubject;
+var subjectID = 4;
+
+const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false // Ensure 24-hour format (e.g., 23:00 instead of 11 PM)
+  };
+
+var data = {
+    1: {
+        id: 1,
+        name: 'Santo DeArpegio',
+        subject: 'Some stuff to read',
+        date: new Date("September 26, 2024 10:30").toLocaleString('he-IL', options),
+        description: 'About some stuff that you may or may not like',
+        text: "This is what's in my mind now"
+    },
+    2: {
+        id: 2,
+        name: 'Don Vitaly',
+        subject: 'Systemic rules and stuff',
+        date: new Date("October 01, 2024 05:05").toLocaleString('he-IL', options),
+        description: 'About System rules and some other stuff',
+        text: "Rule number 1: Do not tell us what to do"
+    },
+    3: {
+        id: 3,
+        name: 'Katy Perrot',
+        subject: 'Other stuff and stuff',
+        date: new Date("January 15, 2025 11:47").toLocaleString('he-IL', options),
+        description: 'About some other stuff too',
+        text: "It's not something that I can tell you"
+    }
+};
 
 app.use(express.static("public"));
-// app.use(express.json()); // Enable JSON body parsing
-app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
+app.use(bodyParser.urlencoded({ extended: true }));
 
- 
+
+function dataBase(req, res, next) {
+    var values = req.body;
+    // If there are values to get
+    if (Object.keys(values).length > 0) { 
+        // Values get into data under the name of the id as key
+        data[subjectID] = values;
+        data[subjectID].id = subjectID;
+        data[subjectID].date = new Date().toLocaleString('he-IL', options);
+        // Increase ID
+        subjectID++; 
+    }
+    console.log("data is:", data);
+
+    next();
+};
+
+// Check if the url name from / and onward is in data keys
+function checkUrl(req, res, next) {
+    // The url with the / char
+    res.locals.url = req.originalUrl; 
+    // If the url string after the / in date keys
+    if (Object.hasOwn(data, res.locals.url.slice(1))) {
+        // pick this ID
+        pickSubject = res.locals.url.slice(1);
+        console.log("ID is:", pickSubject);
+        next(); 
+    } else {
+        // If the key does not exist, return 404
+        res.status(404).send("Subject ID not found.");
+    }
+};
+
+
+app.use(dataBase);
+
 app.get("/", (req, res) => {
-    // console.log(data);
-    res.render("index.ejs");
+    console.log();
+    res.render("index.ejs", { data, url: req.originalUrl });
+});
+
+app.get('/posts', (req, res) => {
+    console.log(pickSubject);
+    res.render("posts.ejs", { data });
+});
+
+app.get('/:pickSubject(\\d+)', checkUrl, (req, res) => {
+    console.log(data[pickSubject]);
+    res.render("index.ejs", { data, subject: data[pickSubject] });
 });
 
 app.get("/newPost", (req, res) => {
-    // console.log(req.body); // Access the parsed JSON data
+
     res.render("newPost.ejs");
 });
 
 app.post("/submit", (req, res) => {
-    // console.log(req.body); // Access the parsed JSON data
+
     res.redirect("/");
 });
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}.`);
 });
-
-
-// Read file function:
-async function readFileData(fileName) {
-    try {
-        // Use of readFile
-        const jsonString = await readFile(fileName, 'utf8');
-        return JSON.parse(jsonString);
-    } catch (err) {
-        if (err.code === 'ENOENT') {
-            return {}; // If the file doesn't exist it will create an empty one
-        }
-        // Throw error if is there any
-        throw new Error(`Error reading or parsing file: ${err.message}`);
-    }
-}
-
-// writeFile function:
-async function writeFileData(fileName, dataObject) {
-    try {
-        const jsonString = JSON.stringify(dataObject, null, 2);
-        // Using writeFile
-        await writeFile(fileName, jsonString, 'utf8');
-    } catch (err) {
-        throw new Error(`Error writing to file: ${err.message}`);
-    }
-}
-
-// Deep Update function
-async function updateFileDeep(fileName, updates) {
-    try {
-        // 1. Read all existing data from the file
-        const currentData = await readFileData(fileName); 
-
-        // Get the key (e.g., 'Ethan' or 'David') and the object of updates
-        const targetKey = Object.keys(updates)[0];
-        const targetUpdates = updates[targetKey];
-        
-        // Determine the base object to merge into:
-        const existingData = currentData[targetKey] || {}; // If key is new, start with an empty object!
-
-        // 2. Deep Merge Logic
-        const updatedObjectForTarget = {
-            ...existingData, // 🔑 If 'Ethan', it loads current fields. If 'David', it's just {}.
-            ...targetUpdates // 🔑 Overwrites existing fields or adds new ones.
-        };
-
-        // 3. Final Merge: Create the final object with the merged target
-        const finalData = {
-            ...currentData, // Keep ALL existing keys (Jonny, and the old Ethan if not overridden)
-            [targetKey]: updatedObjectForTarget // Replace the old target object OR add the new one
-        };
-
-        // 4. Write the complete, updated object back to the file
-        await writeFileData(fileName, finalData);
-        return finalData;
-
-    } catch (error) {
-        console.error(`❌ File update failed: ${error.message}`);
-        return null;
-    }
-}

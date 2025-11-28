@@ -4,52 +4,30 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Post content-->
-                <article>
-                    <!-- Post header-->
-                    <header class="mb-4">
-                        <!-- Post title-->
-                        <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-                        <!-- Post meta content-->
-                        <div class="text-muted fst-italic mb-2">Posted on January 1, 2023 by Start Bootstrap</div>
-                        <!-- Post categories-->
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                    </header>
-                    <!-- Preview image figure-->
-                    <figure class="mb-4"><img class="img-fluid rounded" src="images/HomePage.png" width="900"
-                            height="400" alt="Home Page Picture" /></figure>
-                    <!-- Post content-->
-                    <section class="mb-5">
-                        <h2 class="fw-bolder mb-4 mt-5">Beyond Reading: Share Your Voice</h2>
-                        <p class="fs-5 mb-4">Welcome to a space where the conversation doesn't end with the post. Unlike
-                            other blogs, we believe the richest insights come from you, our vibrant community. This
-                            platform is built on the idea that everyone has a story, an expertise, or a unique
-                            perspective worth sharing. We encourage you to move from passive reader to active creator.
-                            If you've ever felt the urge to share your knowledge, spark a debate, or simply showcase
-                            your latest project, this is your invitation to take center stage.
-                        </p>
-
-                        <h2 class="fw-bolder mb-4 mt-5">Ready to Write? Share Your Expertise</h2>
-                        <p class="fs-5 mb-4">We've made the process of becoming a contributor simple and accessible.
-                            Whether you're a seasoned professional, a passionate hobbyist, or just starting out, your
-                            unique voice is valuable here. You have the power to write your own post, sharing tutorials,
-                            personal reflections, reviews, or deep-dive analyses that align with our core themes.
-                            Imagine seeing your work published, shared, and discussed by thousands of engaged readers.
-                            Don't keep your brilliance to yourself—submit your post and let's amplify your message
-                            together.
-                        </p>
-
-                        <h2 class="fw-bolder mb-4 mt-5">Join the Conversation, Build the Community</h2>
-                        <p class="fs-5 mb-4">This isn't just a content repository; it's a dynamic, ever-evolving
-                            community-driven magazine. By contributing your own posts, you're not just writing an
-                            article; you're shaping the direction of the entire platform. Every piece of content
-                            submitted by our users helps foster a richer, more diverse exchange of ideas. Check out our
-                            contributor guidelines, see what topics are trending, and start crafting your submission
-                            today. Let's make this the ultimate hub for shared knowledge and collaborative creativity.
-                            Your next post could be our next big hit!
-                        </p>
-                    </section>
-                </article>
+                <% if (url==='/' ) { %>
+                    <%- include("partials/home.ejs") %>
+                        <% } else { %>
+                            <article>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- Post title-->
+                                    <h1 class="fw-bolder mb-1">
+                                        <%= subject.subject %>
+                                    </h1>
+                                    <!-- Post meta content-->
+                                    <div class="text-muted fst-italic mb-2">Posted on <%= subject.date %>
+                                    </div>
+                                </header>
+                                <!-- Post content-->
+                                <section class="mb-5">
+                                    <p class="fs-5 mb-4">
+                                        <%= subject.text %>
+                                    </p>
+                                </section>
+                            </article>
+                            <% } %>
             </div>
+
             <!-- Side widgets-->
             <div class="col-lg-4 side-widget">
                 <!-- Table widget-->
@@ -61,59 +39,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="https://robohash.org/EthanDeArpegio" alt=""
-                                        style="width: 45px; height: 45px" class="rounded-circle" />
-                                    <div class="ms-3">
-                                        <p class="fw-bold mb-1">Ethan De Arpegio</p>
+                        <% for (const [key, subjectID] of Object.entries(data).slice(-5).reverse()) { %>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://robohash.org/<%= subjectID.name %>" alt=""
+                                            style="width: 45px; height: 45px" class="rounded-circle" />
+                                        <div class="ms-3">
+                                            <p class="fw-bold mb-1">
+                                                <%= subjectID.name %>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#!"
-                                    class="fs-5 fw-normal mb-1 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Some
-                                    stuff to read</a>
-                                <p class="text-muted mb-0">About some stuff that you may or may not like</p>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="https://robohash.org/DonVitaly" class="rounded-circle" alt=""
-                                        style="width: 45px; height: 45px" />
-                                    <div class="ms-3">
-                                        <p class="fw-bold mb-1">Don Vitaly</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#!"
-                                    class="fs-5 fw-normal mb-1 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Systemic
-                                    rules and stuff</a>
-                                <p class="text-muted mb-0">About System rules and some other stuff</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="https://robohash.org/KatyPerrot" class="rounded-circle" alt=""
-                                        style="width: 45px; height: 45px" />
-                                    <div class="ms-3">
-                                        <p class="fw-bold mb-1">Katy Perrot</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#!"
-                                    class="fs-5 fw-normal mb-1 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Other
-                                    stuff and stuff</a>
-                                <p class="text-muted mb-0">About some other stuff too</p>
-                            </td>
-
-                        </tr>
+                                </td>
+                                <td>
+                                    <a href="/<%= subjectID.id %>"
+                                        class="fs-5 fw-normal mb-1 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                                        <%= subjectID.subject %>
+                                    </a>
+                                    <p class="text-muted mb-0">
+                                        <%= subjectID.description %>
+                                    </p>
+                                </td>
+                                <% } %>
+                            </tr>
                     </tbody>
                 </table>
             </div>
