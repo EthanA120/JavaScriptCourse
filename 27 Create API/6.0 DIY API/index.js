@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3000;
+const port = 5000;
 const masterKey = "4VGP2DN-6EWM4SJ-N6FGRHV-Z3PR3TT";
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -104,7 +104,7 @@ app.delete("/jokes/:id", (req, res) => {
     }
 });
 
-// 8. DOING DELETE All jokes
+// 8. DONE DELETE All jokes
 app.delete("/all", (req, res) => {
     if (req.query.key !== masterKey) {
         return res.status(401).json({
